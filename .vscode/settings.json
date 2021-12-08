@@ -1,0 +1,8 @@
+{
+    "editor.formatOnSave": true,
+    "editor.fontSize": 16,
+    "files.associations": {
+        "neural_network.h": "c",
+        "func.h": "c"
+    }
+}
