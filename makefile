@@ -16,7 +16,7 @@ MAIN = NNXor
 all: $(MAIN)
 
 $(MAIN): $(OBJS)
-	$(CC) $(CFLAGS) $(INCLUDES) -o $(MAIN).sh $(OBJS) $(LFAGS) $(LIBS) -lm
+	$(CC) $(CFLAGS) $(INCLUDES) -o $(MAIN).exe $(OBJS) $(LFAGS) $(LIBS) -lm
 
 
 .c.o:

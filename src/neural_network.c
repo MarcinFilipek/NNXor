@@ -6,26 +6,26 @@ static NeuralNetworkParameters neuralNetworkParameters;
 
 static long double neural_network_calculate_connected_neurons(Neuron *neuron)
 {
-    if (neuron->numberDendryts)
+    if (neuron->numberDendrites)
     {
-        for (int i = 0; i < neuron->numberDendryts; i++)
+        for (int i = 0; i < neuron->numberDendrites; i++)
         {
-            neural_network_calculate_connected_neurons(neuron->dendryts[i]);
+            neural_network_calculate_connected_neurons(neuron->dendrites[i]);
         }
     }
     neuron_calculate_neuron(neuron);
-    return neuron->aksonValue;
+    return neuron->axonValue;
 }
 
 static void neural_network_update_weights(Neuron *neuron, float learningRate, long double error)
 {
     neuron_update_weight(neuron, learningRate, error);
 
-    if (neuron->numberDendryts)
+    if (neuron->numberDendrites)
     {
-        for (int i = 0; i < neuron->numberDendryts; i++)
+        for (int i = 0; i < neuron->numberDendrites; i++)
         {
-            neural_network_update_weights(neuron->dendryts[i], learningRate, error);
+            neural_network_update_weights(neuron->dendrites[i], learningRate, error);
         }
     }
 }
@@ -40,7 +40,7 @@ static long double neural_network_feedforward(NeuralNetworkParameters neuralNetw
     {
         for (int sensorIndex = 0; sensorIndex < numberFeatures; sensorIndex++)
         {
-            sensorNeurons[sensorIndex]->aksonValue = neuralNetworkParameters.trainX[samplesIndex * numberFeatures + sensorIndex];
+            sensorNeurons[sensorIndex]->axonValue = neuralNetworkParameters.trainX[samplesIndex * numberFeatures + sensorIndex];
         }
         long double prediction = neural_network_calculate_connected_neurons(outNeuron);
         printf("Pred: %.20Lf, target: %.20f\n", prediction, neuralNetworkParameters.trainY[samplesIndex]);
@@ -49,9 +49,9 @@ static long double neural_network_feedforward(NeuralNetworkParameters neuralNetw
     return error;
 }
 
-void neural_network_fit(int numberFeatures, int numberSamples, Neuron *sensorNeurons[], Neuron *outNeuron, float *trainX, float *trainY, int numberEpochs, float learninRate)
+void neural_network_fit(int numberFeatures, int numberSamples, Neuron *sensorNeurons[], Neuron *outNeuron, float *trainX, float *trainY, int numberEpochs, float learningRate)
 {
-    neuralNetworkParameters.learningRate = learninRate;
+    neuralNetworkParameters.learningRate = learningRate;
     neuralNetworkParameters.numberEpochs = numberEpochs;
     neuralNetworkParameters.numberSamples = numberSamples;
     neuralNetworkParameters.numberFeatures = numberFeatures;
@@ -72,7 +72,7 @@ long double neural_network_predict(Neuron *sensorNeurons[], Neuron *outNeuron, f
 {
     for (unsigned int indexFeature = 0; indexFeature < neuralNetworkParameters.numberFeatures; indexFeature++)
     {
-        sensorNeurons[indexFeature]->aksonValue = features[indexFeature];
+        sensorNeurons[indexFeature]->axonValue = features[indexFeature];
     }
     return neural_network_calculate_connected_neurons(outNeuron);
 }
