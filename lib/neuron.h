@@ -3,11 +3,11 @@
 
 struct Neuron_struct
 {
-    struct Neuron_struct **dendryts;
-    int numberDendryts;
+    struct Neuron_struct **dendrites;
+    int numberDendrites;
     int debug_id;
     long double *weights;
-    long double aksonValue;
+    long double axonValue;
     long double bias;
 };
 

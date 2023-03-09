@@ -4,7 +4,7 @@
 #include "neuron.h"
 #include "neural_network.h"
 
-#define NUMBER_FATURES 2
+#define NUMBER_FEATURES 2
 #define EPOCHS 1000
 
 int main()
@@ -26,14 +26,14 @@ int main()
     neuron_connect_neurons(&n1l0, &n1l1);
     neuron_connect_neurons(&n2l0, &n1l1);
 
-    float trainX[][NUMBER_FATURES] = {{0, 0}, {0, 1}, {1, 1}, {1, 0}};
+    float trainX[][NUMBER_FEATURES] = {{0, 0}, {0, 1}, {1, 1}, {1, 0}};
     float trainY[] = {0, 1, 0, 1};
 
     Neuron *sensorNeurons[] = {&sensorNeuron1, &sensorNeuron2};
 
-    neural_network_fit(NUMBER_FATURES, 4, sensorNeurons, &n1l1, (float *)trainX, trainY, EPOCHS, 0.1);
+    neural_network_fit(NUMBER_FEATURES, 4, sensorNeurons, &n1l1, (float *)trainX, trainY, EPOCHS, 0.1);
 
-    float testX[NUMBER_FATURES] = {0, 1};
+    float testX[NUMBER_FEATURES] = {0, 1};
     long double pred = neural_network_predict(sensorNeurons, &n1l1, testX);
     printf("Predict: %.20Lf\n", pred);
     return 0;

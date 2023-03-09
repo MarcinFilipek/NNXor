@@ -7,38 +7,38 @@
 
 void neuron_connect_neurons(Neuron *firstNeuron, Neuron *secondNeuron)
 {
-    int currentNumberDendryts = secondNeuron->numberDendryts;
-    secondNeuron->numberDendryts++;
-    if (secondNeuron->dendryts == NULL)
+    int currentNumberDendrites = secondNeuron->numberDendrites;
+    secondNeuron->numberDendrites++;
+    if (secondNeuron->dendrites == NULL)
     {
-        secondNeuron->dendryts = malloc(secondNeuron->numberDendryts * sizeof(Neuron *));
-        secondNeuron->weights = malloc(secondNeuron->numberDendryts * sizeof(long double));
+        secondNeuron->dendrites = malloc(secondNeuron->numberDendrites * sizeof(Neuron *));
+        secondNeuron->weights = malloc(secondNeuron->numberDendrites * sizeof(long double));
     }
     else
     {
-        Neuron **currentDendryts = secondNeuron->dendryts;
-        Neuron **newDendryts = malloc(secondNeuron->numberDendryts * sizeof(Neuron *));
+        Neuron **currentDendrite = secondNeuron->dendrites;
+        Neuron **newDendrites = malloc(secondNeuron->numberDendrites * sizeof(Neuron *));
 
         long double *currentWeights = secondNeuron->weights;
-        long double *newWeights = malloc(secondNeuron->numberDendryts * sizeof(long double));
+        long double *newWeights = malloc(secondNeuron->numberDendrites * sizeof(long double));
 
-        for (int i = 0; i < currentNumberDendryts; i++)
+        for (int i = 0; i < currentNumberDendrites; i++)
         {
-            newDendryts[i] = currentDendryts[i];
+            newDendrites[i] = currentDendrite[i];
             newWeights[i] = currentWeights[i];
         }
-        secondNeuron->dendryts = newDendryts;
+        secondNeuron->dendrites = newDendrites;
         secondNeuron->weights = newWeights;
-        free(currentDendryts);
+        free(currentDendrite);
         free(currentWeights);
     }
-    secondNeuron->dendryts[currentNumberDendryts] = firstNeuron;
-    secondNeuron->weights[currentNumberDendryts] = DEFAULT_WEIGHT;
+    secondNeuron->dendrites[currentNumberDendrites] = firstNeuron;
+    secondNeuron->weights[currentNumberDendrites] = DEFAULT_WEIGHT;
 }
 
 static bool neuron_is_sensor_neuron(Neuron *neuron)
 {
-    return neuron->dendryts == NULL;
+    return neuron->dendrites == NULL;
 }
 
 void neuron_calculate_neuron(Neuron *neuron)
@@ -47,19 +47,19 @@ void neuron_calculate_neuron(Neuron *neuron)
         return;
 
     long double inputSum = 0;
-    for (int i = 0; i < neuron->numberDendryts; i++)
+    for (int i = 0; i < neuron->numberDendrites; i++)
     {
-        inputSum += (*neuron->dendryts)[i].aksonValue * neuron->weights[i] + neuron->bias;
+        inputSum += (*neuron->dendrites)[i].axonValue * neuron->weights[i] + neuron->bias;
     }
-    neuron->aksonValue = func_sigmoid(inputSum);
+    neuron->axonValue = func_sigmoid(inputSum);
 }
 
 void neuron_update_weight(Neuron *neuron, float learningRate, long double error)
 {
-    long double out = neuron->aksonValue;
-    for (unsigned int i = 0; i < neuron->numberDendryts; i++)
+    long double out = neuron->axonValue;
+    for (unsigned int i = 0; i < neuron->numberDendrites; i++)
     {
-        neuron->weights[i] = neuron->weights[i] - learningRate * error * (*neuron->dendryts)[i].aksonValue * out * (1 - out);
+        neuron->weights[i] = neuron->weights[i] - learningRate * error * (*neuron->dendrites)[i].axonValue * out * (1 - out);
     }
     neuron->bias = neuron->bias - learningRate * error * out * (1 - out);
 }
