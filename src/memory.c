@@ -11,4 +11,5 @@ void memory_free(void *buf, char *file, unsigned int line)
 {
     printf("File: %s, line: %d: free %p \n", file, line, buf);
     free(buf);
+    buf = NULL;
 }
