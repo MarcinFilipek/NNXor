@@ -23,6 +23,6 @@ extern void neural_network_fit(
     int numberEpochs,
     float learninRate);
 
-extern long double neural_network_predict(Neuron *sensorNeurons[], Neuron *outNeuron, float *features);
+extern double neural_network_predict(Neuron *sensorNeurons[], Neuron *outNeuron, float *features);
 
 #endif // NEURAL_NETWORK_H_
