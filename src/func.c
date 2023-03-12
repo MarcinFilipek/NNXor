@@ -4,19 +4,17 @@
 
 #include "func.h"
 
-long double func_sigmoid(long double x)
+double func_sigmoid(double x)
 {
     return 1 / (1 + exp(-x));
 }
 
-long double func_derivative_sigmoid(long double x)
+double func_derivative_sigmoid(double x)
 {
     return x / (1 - x);
 }
 
 int func_random_from_range(int min, int max)
 {
-    return (rand() %
-            (max - min + 1)) +
-           min;
+    return (rand() % (max - min + 1)) + min;
 }

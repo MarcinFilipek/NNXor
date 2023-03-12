@@ -6,9 +6,9 @@ struct Neuron_struct
     struct Neuron_struct **dendrites;
     int numberDendrites;
     int debug_id;
-    long double *weights;
-    long double axonValue;
-    long double bias;
+    double *weights;
+    double axonValue;
+    double bias;
 };
 
 typedef struct Neuron_struct Neuron;
@@ -17,6 +17,6 @@ typedef struct Neuron_struct Neuron;
 
 extern void neuron_connect_neurons(Neuron *firstNeuron, Neuron *secondNeuron);
 extern void neuron_calculate_neuron(Neuron *neuron);
-extern void neuron_update_weight(Neuron *neuron, float learningRate, long double error);
+extern void neuron_update_weight(Neuron *neuron, float learningRate, double error);
 
 #endif // NEURON_H_

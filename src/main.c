@@ -5,7 +5,8 @@
 #include "neural_network.h"
 
 #define NUMBER_FEATURES 2
-#define EPOCHS 1000
+#define EPOCHS 10
+#define LEARNING_RATE 0.1
 
 int main()
 {
@@ -31,10 +32,10 @@ int main()
 
     Neuron *sensorNeurons[] = {&sensorNeuron1, &sensorNeuron2};
 
-    neural_network_fit(NUMBER_FEATURES, 4, sensorNeurons, &n1l1, (float *)trainX, trainY, EPOCHS, 0.1);
+    neural_network_fit(NUMBER_FEATURES, 4, sensorNeurons, &n1l1, (float *)trainX, trainY, EPOCHS, LEARNING_RATE);
 
     float testX[NUMBER_FEATURES] = {0, 1};
-    long double pred = neural_network_predict(sensorNeurons, &n1l1, testX);
+    double pred = neural_network_predict(sensorNeurons, &n1l1, testX);
     printf("Predict: %.20Lf\n", pred);
     return 0;
 }
